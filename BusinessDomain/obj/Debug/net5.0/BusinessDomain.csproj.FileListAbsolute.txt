@@ -1,0 +1,17 @@
+E:\NeoBankAPI\BusinessDomain\bin\Debug\net5.0\BusinessDomain.deps.json
+E:\NeoBankAPI\BusinessDomain\bin\Debug\net5.0\BusinessDomain.dll
+E:\NeoBankAPI\BusinessDomain\bin\Debug\net5.0\BusinessDomain.pdb
+E:\NeoBankAPI\BusinessDomain\bin\Debug\net5.0\BusinessModel.dll
+E:\NeoBankAPI\BusinessDomain\bin\Debug\net5.0\DataAccess.dll
+E:\NeoBankAPI\BusinessDomain\bin\Debug\net5.0\BusinessModel.pdb
+E:\NeoBankAPI\BusinessDomain\bin\Debug\net5.0\DataAccess.pdb
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.csproj.AssemblyReference.cache
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.GeneratedMSBuildEditorConfig.editorconfig
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.AssemblyInfoInputs.cache
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.AssemblyInfo.cs
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.csproj.CoreCompileInputs.cache
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.csproj.CopyComplete
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.dll
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\refint\BusinessDomain.dll
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\BusinessDomain.pdb
+E:\NeoBankAPI\BusinessDomain\obj\Debug\net5.0\ref\BusinessDomain.dll

@@ -1,0 +1,12 @@
+E:\NeoBankAPI\BusinessModel\bin\Debug\net7.0\BusinessModel.deps.json
+E:\NeoBankAPI\BusinessModel\bin\Debug\net7.0\BusinessModel.dll
+E:\NeoBankAPI\BusinessModel\bin\Debug\net7.0\BusinessModel.pdb
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\BusinessModel.csproj.AssemblyReference.cache
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\BusinessModel.GeneratedMSBuildEditorConfig.editorconfig
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\BusinessModel.AssemblyInfoInputs.cache
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\BusinessModel.AssemblyInfo.cs
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\BusinessModel.csproj.CoreCompileInputs.cache
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\BusinessModel.dll
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\refint\BusinessModel.dll
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\BusinessModel.pdb
+E:\NeoBankAPI\BusinessModel\obj\Debug\net7.0\ref\BusinessModel.dll
