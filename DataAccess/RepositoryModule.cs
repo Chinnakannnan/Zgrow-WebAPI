@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using DataAccess.Auth;
 using DataAccess.Payout;
+using DataAccess.User;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,9 @@ namespace DataAccess
                 // 
                 builder.RegisterType<AuthDA>().As<IAuthDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
                 builder.RegisterType<PayoutDA>().As<IPayoutDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
+                builder.RegisterType<UserDA>().As<IUserDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
+
+
             }
             catch (Exception e)
             {

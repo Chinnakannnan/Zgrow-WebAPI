@@ -33,9 +33,10 @@ namespace NeoBankSolutionAPI.Controllers
                 { client_secret = clientSecret; }
                 StatusResponse validUser = _authDA.Authenticate(usersdata, client_id, client_secret);
                 if (validUser.StatusCode.ToString() != ResponseCode.Success) 
-                return Unauthorized(validUser.StatusDesc.ToString());
+                return Unauthorized(validUser);
                 var token = _authBusiness.GenerateToken(usersdata.UserName);
                 if (token == null) { return Unauthorized("Invalid Attempt!"); }
+
                 return Ok(token);
             }
             catch (Exception ex)  
