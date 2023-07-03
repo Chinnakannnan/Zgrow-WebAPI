@@ -6,7 +6,7 @@ using System.Data;
 using System.Text;
 using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
-using BusinessModel.Common;
+using BusinessModel.Common; 
 
 
 namespace Services_API.Banking
@@ -14,7 +14,6 @@ namespace Services_API.Banking
     public class BankService :IBankService
     {
         private readonly IPayoutDA _payoutdataservice; 
-
         public BankService(IPayoutDA instance) => (_payoutdataservice) = (instance);
         public string YesBankPayout(PayoutRequest payoutRequest)
         {
@@ -115,7 +114,9 @@ namespace Services_API.Banking
 
                 return payoutResponse;
             }
-            catch (Exception ex) { return ex.ToString(); }
+            catch (Exception ex) {            
+                return ex.ToString();
+            }
         }
         public string AxisBankPayout(PayoutRequest payoutRequest)
         {   return null;
@@ -183,8 +184,6 @@ namespace Services_API.Banking
             return id;
 
         }
-
-
         public string YesBankPostAsync(string body)
         {
             try {

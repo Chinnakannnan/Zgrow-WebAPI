@@ -29,7 +29,7 @@ namespace DataAccess.Auth
                 dParam.Add("@ClientId", clientId);
                 dParam.Add("@ClientSecret", clientSecret);
                 var result = QuerySP<StatusResponse>("sp_LoginValidate", dParam).FirstOrDefault();
-                return result;
+                 return result;
             }
             catch (Exception ex) {
 

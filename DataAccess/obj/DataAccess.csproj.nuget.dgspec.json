@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\NeoBankAPI\\DataAccess\\DataAccess.csproj": {}
+    "E:\\NeoBankAPI\\Zgrow-WebAPI\\DataAccess\\DataAccess.csproj": {}
   },
   "projects": {
-    "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj": {
+    "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj",
+        "projectUniqueName": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj",
         "projectName": "BusinessModel",
-        "projectPath": "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj",
+        "projectPath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj",
         "packagesPath": "C:\\Users\\User444\\.nuget\\packages\\",
-        "outputPath": "E:\\NeoBankAPI\\BusinessModel\\obj\\",
+        "outputPath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User444\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -73,14 +73,14 @@
         }
       }
     },
-    "E:\\NeoBankAPI\\DataAccess\\DataAccess.csproj": {
+    "E:\\NeoBankAPI\\Zgrow-WebAPI\\DataAccess\\DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\NeoBankAPI\\DataAccess\\DataAccess.csproj",
+        "projectUniqueName": "E:\\NeoBankAPI\\Zgrow-WebAPI\\DataAccess\\DataAccess.csproj",
         "projectName": "DataAccess",
-        "projectPath": "E:\\NeoBankAPI\\DataAccess\\DataAccess.csproj",
+        "projectPath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\DataAccess\\DataAccess.csproj",
         "packagesPath": "C:\\Users\\User444\\.nuget\\packages\\",
-        "outputPath": "E:\\NeoBankAPI\\DataAccess\\obj\\",
+        "outputPath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User444\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -97,8 +97,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj": {
-                "projectPath": "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj"
+              "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj": {
+                "projectPath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj"
               }
             }
           }

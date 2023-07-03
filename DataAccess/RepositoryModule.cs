@@ -1,6 +1,9 @@
 ﻿using Autofac;
+using DataAccess.Admin;
 using DataAccess.Auth;
+using DataAccess.PaymentGateway;
 using DataAccess.Payout;
+using DataAccess.Report;
 using DataAccess.User;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -47,6 +50,12 @@ namespace DataAccess
                 builder.RegisterType<AuthDA>().As<IAuthDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
                 builder.RegisterType<PayoutDA>().As<IPayoutDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
                 builder.RegisterType<UserDA>().As<IUserDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
+                builder.RegisterType<PaymentGatewayDA>().As<IPaymentGatewayDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
+                builder.RegisterType<ReportDA>().As<IReportDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
+                builder.RegisterType<AdminDA>().As<IAdminDA>().WithParameter("databaseConfig", new DatabaseConfig(_dbConnection));
+
+
+                
 
 
             }

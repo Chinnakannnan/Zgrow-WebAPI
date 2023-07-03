@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using RuleEngine.PaymentGateway;
 using RuleEngine.Payout;
 
 namespace RuleEngine
@@ -17,8 +18,10 @@ namespace RuleEngine
 
                 // Register your service here
 
-                builder.RegisterType<PayoutRule>().AsImplementedInterfaces(); 
- 
+                builder.RegisterType<PayoutRule>().AsImplementedInterfaces();
+                builder.RegisterType<PaymentGatwayRule>().AsImplementedInterfaces();
+
+
 
             }
             catch (Exception ex)

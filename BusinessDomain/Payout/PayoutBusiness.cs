@@ -21,5 +21,8 @@ namespace BusinessDomain.Payout
             var result = _authRepository.PrimaryCheck(APIName, CompanyCode, CustomerId);
             return result;
         }
+
+         
+
         }
 }

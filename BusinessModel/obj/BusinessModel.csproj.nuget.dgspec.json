@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj": {}
+    "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj": {}
   },
   "projects": {
-    "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj": {
+    "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj",
+        "projectUniqueName": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj",
         "projectName": "BusinessModel",
-        "projectPath": "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj",
+        "projectPath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj",
         "packagesPath": "C:\\Users\\User444\\.nuget\\packages\\",
-        "outputPath": "E:\\NeoBankAPI\\BusinessModel\\obj\\",
+        "outputPath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User444\\AppData\\Roaming\\NuGet\\NuGet.Config",

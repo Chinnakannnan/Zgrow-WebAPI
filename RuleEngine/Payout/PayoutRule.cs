@@ -46,7 +46,6 @@ namespace RuleEngine.Payout
 
             return new StatusResponse();
         }
-
         public StatusResponse CheckStatus(PrimaryCheckModel primaryCheck, PayoutCheckRequest payoutCheckRequest)
         {
 

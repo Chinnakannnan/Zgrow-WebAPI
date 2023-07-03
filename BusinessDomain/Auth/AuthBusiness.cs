@@ -36,7 +36,7 @@ namespace BusinessDomain.Auth
                   {
                  new Claim(ClaimTypes.Name, userName)
                   }),
-                    Expires = DateTime.Now.AddMinutes(10),
+                    Expires = DateTime.Now.AddMinutes(30),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(tokenKey), SecurityAlgorithms.HmacSha256Signature)
                 };
                 var token = tokenHandler.CreateToken(tokenDescriptor);

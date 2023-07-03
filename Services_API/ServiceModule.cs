@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using Services_API.Banking;
+using Services_API.PaymentGateway;
 using System.Reflection;
 using Module = Autofac.Module;
 
@@ -20,6 +21,7 @@ namespace Services_API
                 // Register your service here
 
                 builder.RegisterType<BankService>().AsImplementedInterfaces();
+                builder.RegisterType<PaymentGatewayService>().AsImplementedInterfaces();
 
 
             }

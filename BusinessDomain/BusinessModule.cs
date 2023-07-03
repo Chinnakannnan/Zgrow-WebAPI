@@ -2,8 +2,11 @@
 namespace BusinessDomain
 {
     using Autofac;
+    using BusinessDomain.Admin;
     using BusinessDomain.Auth;
+    using BusinessDomain.PaymentGateway;
     using BusinessDomain.Payout;
+    using BusinessDomain.Report;
     using BusinessDomain.User;
     using System;
 
@@ -24,8 +27,10 @@ namespace BusinessDomain
                 builder.RegisterType<AuthBusiness>().AsImplementedInterfaces();
                 builder.RegisterType<PayoutBusiness>().AsImplementedInterfaces();
                 builder.RegisterType<UserBusiness>().AsImplementedInterfaces();
-
-
+                builder.RegisterType<ReportBusiness>().AsImplementedInterfaces();
+                builder.RegisterType<PaymentGatewayBussiness>().AsImplementedInterfaces();
+                builder.RegisterType<AdminBusiness>().AsImplementedInterfaces();
+                
 
             }
             catch (Exception ex)

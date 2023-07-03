@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dDeCk6XAREfS9PqqN5X7afCB0cLdboBAmyzBSfywreMVPNAVENbSJlwUuzJIBYP9HCsRWcAb+gtZycSPrXO88w==",
+  "dgSpecHash": "J0e/eQfn9Kmu9KlUjvefk9KcFhKi8Th47B5Wt+NExxH3YFJTMyF3b1Iyn6OVSlYeR76bmwTKJtu9cy3xSUOwYg==",
   "success": true,
-  "projectFilePath": "E:\\NeoBankAPI\\BusinessModel\\BusinessModel.csproj",
+  "projectFilePath": "E:\\NeoBankAPI\\Zgrow-WebAPI\\BusinessModel\\BusinessModel.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User444\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\User444\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
