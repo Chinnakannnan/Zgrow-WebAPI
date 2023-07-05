@@ -1,4 +1,5 @@
-﻿using BusinessModel.User;
+﻿using BusinessModel.Admin;
+using BusinessModel.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace BusinessDomain.User
 {
     public interface IUserBusiness
     {
+        List<CompanyList> GetCompanyList();
         UserInfoResponse UserInfo(UserInfo userInfo);
 
 

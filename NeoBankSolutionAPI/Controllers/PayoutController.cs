@@ -1,4 +1,19 @@
-﻿using BusinessDomain.Payout;
+﻿/*  -----------   Controller OverView Start----------------------   
+       
+1)Should Use Applog and ErrorLog method for log Entry
+         Example: 
+         try
+         {
+         await _LogRepository.AppLog(ControllerName.Admin, MethodName.AddUser, "method input".ToString());
+         catch (Exception ex)
+         {
+          await _LogRepository.ErrorLog(ControllerName.Admin, MethodName.AddUser, ex.ToString());
+         }
+
+
+    -----------   Controller OverView End----------------------   */
+
+using BusinessDomain.Payout;
 using BusinessModel.Auth;
 using BusinessModel.Common;
 using BusinessModel.Payout;
@@ -8,6 +23,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using BusinessModel.PaymentGateway;
+using Newtonsoft.Json;
+using DataAccess.Common;
 
 namespace NeoBankSolutionAPI.Controllers
 {
@@ -16,18 +34,29 @@ namespace NeoBankSolutionAPI.Controllers
     [ApiController]
     public class PayoutController : ControllerBase
     {
+        string CustomerID = string.Empty;
+        string CompanyCode = string.Empty;
+        private readonly CommonDA _LogRepository;
         private readonly IPayoutBusiness _businessDomain;
         private readonly IConfiguration _iconfiguration;
         private readonly IPayoutRule _payoutRuleEngine;
 
-        public PayoutController(IPayoutBusiness businessInstance, IConfiguration iconfiguration, IPayoutRule ruleInstance) => (_businessDomain, _iconfiguration, _payoutRuleEngine) = (businessInstance, iconfiguration, ruleInstance);      
+        public PayoutController(CommonDA LogInstance,IPayoutBusiness businessInstance, IConfiguration iconfiguration, IPayoutRule ruleInstance) => (_LogRepository,_businessDomain, _iconfiguration, _payoutRuleEngine) = (LogInstance,businessInstance, iconfiguration, ruleInstance);      
 
         [HttpPost]
         [Route("FundTransfer")]
-        public IActionResult FundTransfer(PayoutRequest payoutRequest)
+        public async Task<ActionResult> FundTransfer(PayoutRequest payoutRequest)
         {
             try {
-                string CompanyCode = string.Empty;
+
+                if (Request.Headers.TryGetValue("CustomerID", out var customerID))
+                {
+                    CustomerID = customerID;
+                }
+                if (string.IsNullOrEmpty(CustomerID))
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.CustomerID });
+                 await _LogRepository.AppLog(CustomerID, ControllerName.Payout, MethodName.FundTransfer, JsonConvert.SerializeObject(payoutRequest).ToString());
+                                
                 if (Request.Headers.TryGetValue("CompanyCode", out var companycode)) 
                 { 
                     CompanyCode = companycode; 
@@ -44,16 +73,26 @@ namespace NeoBankSolutionAPI.Controllers
                 var actionResult = _payoutRuleEngine.Payout(validationResult, payoutRequest);
                 return Ok(actionResult);
                 } 
-            catch(Exception Ex){ throw; }
+            catch(Exception Ex){
+                await _LogRepository.ErrorLog(CustomerID, ControllerName.Payout, MethodName.FundTransfer, Ex.ToString());
+                throw;
+            }
            
         }
-
         [HttpPost]
         [Route("CheckStatus")]
-        public IActionResult CheckStatus(PayoutCheckRequest payoutCheckRequest)
+        public async Task<IActionResult> CheckStatus(PayoutCheckRequest payoutCheckRequest)
         {
             try
             {
+                if (Request.Headers.TryGetValue("CustomerID", out var customerID))
+                {
+                    CustomerID = customerID;
+                }
+                if (string.IsNullOrEmpty(CustomerID))
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.CustomerID });
+                await _LogRepository.AppLog(CustomerID, ControllerName.Payout, MethodName.CheckStatus, JsonConvert.SerializeObject(payoutCheckRequest).ToString());
+
                 string CompanyCode = string.Empty;
                 if (Request.Headers.TryGetValue("CompanyCode", out var companycode))
                 {
@@ -66,7 +105,11 @@ namespace NeoBankSolutionAPI.Controllers
                 var actionResult = _payoutRuleEngine.CheckStatus(validationResult, payoutCheckRequest);
                 return Ok(actionResult);
             }
-            catch (Exception Ex) { throw; }
+            catch (Exception Ex) {
+                await _LogRepository.ErrorLog(CustomerID, ControllerName.Payout, MethodName.CheckStatus, Ex.ToString());
+
+                throw; 
+            }
 
         }
 

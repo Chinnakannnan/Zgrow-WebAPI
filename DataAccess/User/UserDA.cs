@@ -1,4 +1,5 @@
-﻿using BusinessModel.Payout;
+﻿using BusinessModel.Admin;
+using BusinessModel.Payout;
 using BusinessModel.User;
 using Dapper;
 using System;
@@ -13,6 +14,19 @@ namespace DataAccess.User
     {
         public UserDA(IDatabaseConfig databaseConfig) : base(databaseConfig)
         {
+        }
+        public List<CompanyList> GetCompanyList()
+        {
+            try
+            {
+                var dParam = new DynamicParameters();
+                List<CompanyList> dBresult = QuerySP<CompanyList>("sp_getCompanyList", dParam).ToList();
+                return dBresult;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public UserInfoResponse UserInfo(UserInfo userInfo)

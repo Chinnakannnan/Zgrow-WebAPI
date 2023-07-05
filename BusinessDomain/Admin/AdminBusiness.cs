@@ -27,11 +27,7 @@ namespace BusinessDomain.Admin
             StatusResponse result = _adminRepository.AddUser(onBoardingRequest);
             return result;
         }
-        public List<CompanyList> GetCompanyList()
-        {
-            List<CompanyList> result = _adminRepository.GetCompanyList();
-            return result;
-        }
+     
         public StatusResponse APIInsert(APIInsert apiRequest)
         {
             StatusResponse result = _adminRepository.AddAPI(apiRequest);

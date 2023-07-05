@@ -1,12 +1,29 @@
-﻿using BusinessDomain.Admin;
+﻿/*  -----------   Controller OverView Start----------------------   
+       
+1)Should Use Applog and ErrorLog method for log Entry
+         Example: 
+         try
+         {
+         await _LogRepository.AppLog(ControllerName.Admin, MethodName.AddUser, "method input".ToString());
+         catch (Exception ex)
+         {
+          await _LogRepository.ErrorLog(ControllerName.Admin, MethodName.AddUser, ex.ToString());
+         }
+2)This controller for only use Admin Access Purpose
+
+    -----------   Controller OverView End----------------------   */
+
+using BusinessDomain.Admin;
 using BusinessDomain.Auth;
 using BusinessModel.Admin;
 using BusinessModel.Auth;
 using BusinessModel.Common;
 using DataAccess.Auth;
+using DataAccess.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace NeoBankSolutionAPI.Controllers
 {
@@ -15,17 +32,27 @@ namespace NeoBankSolutionAPI.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
-
-        private readonly IAdminBusiness _adminBusiness; 
-        public AdminController(IAdminBusiness adminInstance) => (_adminBusiness) = (adminInstance);
-
+        string CustomerID = string.Empty;
+        private readonly IAdminBusiness _adminBusiness;
+        private readonly CommonDA _LogRepository;
+        public AdminController(IAdminBusiness adminInstance, CommonDA LogInstance) => (_adminBusiness, _LogRepository) = (adminInstance, LogInstance);
 
         [HttpPost]
         [Route("AddCompany")]
-        public IActionResult AddCompany(AddAdminRequest addAdminRequest)
-        {
+        public async Task<ActionResult> AddCompany(AddAdminRequest addAdminRequest)
+        {          
             try
-            {    // Null Validation
+            {               
+                if (Request.Headers.TryGetValue("CustomerID", out var customerID))
+                {
+                    CustomerID = customerID;
+                }
+                if (string.IsNullOrEmpty(CustomerID))
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.CustomerID });
+
+                await _LogRepository.AppLog(CustomerID,ControllerName.Admin, MethodName.AddCompany, JsonConvert.SerializeObject(addAdminRequest).ToString());
+               
+                // Null Validation
                 if (addAdminRequest == null) 
                     return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.Request_Empty });
                 // Null Validation (Parameters)
@@ -40,9 +67,9 @@ namespace NeoBankSolutionAPI.Controllers
                 // Mobile Number Validation
                 if (addAdminRequest.ContactMobile1.Length.ToString() != "10"|| addAdminRequest.ContactMobile2.Length.ToString() != "10")
                     return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.InvailidMobileNumber });
+                 
+                  StatusResponse result = _adminBusiness.AddCompany(addAdminRequest);
 
-
-                 StatusResponse result = _adminBusiness.AddCompany(addAdminRequest);
                 if(result.StatusCode=="000")
                     return Ok(new StatusResponse { StatusCode = ResponseCode.Success, StatusDesc = result.StatusDesc});
                 else
@@ -51,20 +78,42 @@ namespace NeoBankSolutionAPI.Controllers
             }
             catch (Exception ex)
             {
-                throw;
+                await _LogRepository.ErrorLog(CustomerID,ControllerName.Admin, MethodName.AddCompany, ex.ToString());
+                throw;                
             }
 
         }
         [HttpPost]
         [Route("AddUser")]
-        public IActionResult AddUser(OnBoardingRequest onBoardingRequest)
-        {
+        public async Task<ActionResult>  AddUser(OnBoardingRequest onBoardingRequest)
+        { 
             try
-            {
+            {             
+                if (Request.Headers.TryGetValue("CustomerID", out var customerID))
+                {
+                    CustomerID = customerID;
+                }
+                if (string.IsNullOrEmpty(CustomerID))
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.CustomerID });
+
+                await _LogRepository.AppLog(CustomerID, ControllerName.Admin, MethodName.AddUser, JsonConvert.SerializeObject(onBoardingRequest).ToString());
+
+                // Null Validation
                 if (onBoardingRequest == null)
                     return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.Request_Empty });
-                if (string.IsNullOrEmpty(onBoardingRequest.ContactMobile1) || string.IsNullOrEmpty(onBoardingRequest.ContactEmail))
+                // Null Validation (Parameters)
+                if (string.IsNullOrEmpty(onBoardingRequest.CompanyName) || string.IsNullOrEmpty(onBoardingRequest.Address1) || string.IsNullOrEmpty(onBoardingRequest.City) || string.IsNullOrEmpty(onBoardingRequest.State) || string.IsNullOrEmpty(onBoardingRequest.Country) || string.IsNullOrEmpty(onBoardingRequest.PinCode) || string.IsNullOrEmpty(onBoardingRequest.ContactPerson) || string.IsNullOrEmpty(onBoardingRequest.ContactMobile1) || string.IsNullOrEmpty(onBoardingRequest.ContactEmail) || string.IsNullOrEmpty(onBoardingRequest.PANNumber) || string.IsNullOrEmpty(onBoardingRequest.PANDocument) || string.IsNullOrEmpty(onBoardingRequest.AadharNumber) || string.IsNullOrEmpty(onBoardingRequest.AadharDocumentFront) || string.IsNullOrEmpty(onBoardingRequest.AadharDocumentBack))
                     return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.MandatoryEmpty });
+                // PAN Validation
+                if (onBoardingRequest.PANNumber.Length.ToString() != "10")
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.InvailidPAN });
+                // Aadhar Validation
+                if (onBoardingRequest.AadharNumber.Length.ToString() != "12")
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.InvailidAadhar });
+                // Mobile Number Validation
+                if (onBoardingRequest.ContactMobile1.Length.ToString() != "10" || onBoardingRequest.ContactMobile2.Length.ToString() != "10")
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.InvailidMobileNumber });
+ 
                 StatusResponse result = _adminBusiness.AddUser(onBoardingRequest);
 
                 if (result.StatusCode == "000")
@@ -75,39 +124,60 @@ namespace NeoBankSolutionAPI.Controllers
             }
             catch (Exception ex)
             {
+                await _LogRepository.ErrorLog(CustomerID,ControllerName.Admin, MethodName.AddUser, ex.ToString());
                 throw;
             }
 
         }
-
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("GetCompanyList")]
-        public IActionResult GetCompanyList()
-        {
+        [HttpPost]
+        [Route("ViewOnBoardedUser")]
+        public async Task<ActionResult> ViewOnBoardedUser(OnBoardingRequest onBoardUserViewRequest)
+        {           
             try
             {
-                List<CompanyList> result = _adminBusiness.GetCompanyList();
-                return Ok(new StatusResponse { StatusCode = ResponseCode.Success, StatusDesc = ResponseMessage.Success, Data = result });
+                if (Request.Headers.TryGetValue("CustomerID", out var customerID))
+                {
+                    CustomerID = customerID;
+                }
+                if (string.IsNullOrEmpty(CustomerID))
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.CustomerID });
 
+                await _LogRepository.AppLog(CustomerID, ControllerName.Admin, MethodName.AddUser, JsonConvert.SerializeObject(onBoardUserViewRequest).ToString());
+
+
+
+
+
+                return null;
             }
             catch (Exception ex)
             {
+                await _LogRepository.ErrorLog(CustomerID, ControllerName.Admin, MethodName.ViewOnBoardedUser, ex.ToString());
                 throw;
-            }
+            }              
 
-        }
+        }       
       
         [HttpPost]
         [Route("AddAPI")]
-        public IActionResult AddAPI(APIInsert apiInsert)
+        public async Task<ActionResult> AddAPI(APIInsert apiInsert)
         {
             try
             {
+                if (Request.Headers.TryGetValue("CustomerID", out var customerID))
+                {
+                    CustomerID = customerID;
+                }
+                if (string.IsNullOrEmpty(CustomerID))
+                    return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.CustomerID });
+                await _LogRepository.AppLog(CustomerID, ControllerName.Admin, MethodName.AddCompany, JsonConvert.SerializeObject(apiInsert).ToString());
+
+
                 if (apiInsert == null)
                     return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.Request_Empty });
                 if (string.IsNullOrEmpty(apiInsert.APIName) || string.IsNullOrEmpty(apiInsert.SubAction))
                     return BadRequest(new StatusResponse { StatusCode = ResponseCode.Failed, StatusDesc = ResponseMessage.MandatoryEmpty });
+                  
                 StatusResponse result = _adminBusiness.APIInsert(apiInsert);
 
                 if (result.StatusCode == "000")
@@ -118,6 +188,8 @@ namespace NeoBankSolutionAPI.Controllers
             }
             catch (Exception ex)
             {
+                await _LogRepository.ErrorLog(CustomerID, ControllerName.Admin, MethodName.AddAPI, ex.ToString());
+
                 throw;
             }
 

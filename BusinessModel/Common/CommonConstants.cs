@@ -18,7 +18,6 @@ namespace BusinessModel.Common
         public const string Seven = "7";
         public const string Eight = "8";
     }
-
     public class ResponseCode
     {
         public const string Success = "000";
@@ -27,13 +26,13 @@ namespace BusinessModel.Common
         public const string UnAuthorized = "U001";
 
     }
-
     public class ResponseMessage
     {
         public const string Success = "Success";
         public const string Failed = "Please Try Again";
         public const string Request_Empty = "Request Empty";
         public const string Company_Code = "Companycode Empty";
+        public const string CustomerID = "Invalid CustomerID";
         public const string UnExpected = "UnExpected Error";
         public const string InputEmpty = "Please check input parameter. Look like Empty.";
         public const string UnAuthorized = "UnAuthorized Attempt";
@@ -44,6 +43,53 @@ namespace BusinessModel.Common
         public const string InvailidMobileNumber = "Invailid Mobile Number";
     }
 
+    public class ControllerName
+    {
+        public const string Auth = "Auth";
+        public const string Admin = "Admin";     
+        public const string ECollect = "ECollect";
+        public const string PaymentGateWay = "PaymentGateWay";
+        public const string Payout = "Payout";
+        public const string Report = "Report";
+        public const string User = "User";
+
+    }
+    public class MethodName
+    {
+
+        //Auth
+        public const string AuthenticateAsync = "AuthenticateAsync";
+        public const string Refresh = "Refresh";
+
+        //Admin 
+        public const string AddCompany = "AddCompany";
+        public const string AddUser = "AddUser";
+        public const string ViewOnBoardedUser = "ViewOnBoardedUser";
+        public const string GetCompanyList = "GetCompanyList";
+        public const string AddAPI = "AddAPI";
+
+        //ECollect
+        public const string Notify = "Notify";
+        public const string Validate = "Validate";
+
+
+        //PaymentGateWay
+        public const string InitiatePay = "InitiatePay";
+        public const string InitiatePayExternal = "InitiatePayExternal";
+        public const string GetPayStatus = "GetPayStatus";
+
+        //Payout
+        public const string FundTransfer =  "FundTransfer";
+        public const string CheckStatus  =  "CheckStatus";
+
+        //Report
+        public const string PaymentGatewayReport = "PaymentGatewayReport";
+        //User
+        public const string UserInformation = "UserInformation";
+        
+      
+
+    }
     public class YesBank
     {
         public const string BaseURL = "https://uatskyway.yesbank.in/";
@@ -54,9 +100,6 @@ namespace BusinessModel.Common
         public const string ClientID = "9eb2fdc3-688e-4e91-9fb2-d1466c6197d8";
         public const string ClientSecrect = "N4gP0rM4eE7jO4yB4yF3fC7rL2lW1pE0nL5wH1hL7iV8uE4vU3";
     }
-
-
-
     public class EaseBuzz
     {
         public const string BaseURL = "https://pay.easebuzz.in";
@@ -69,8 +112,6 @@ namespace BusinessModel.Common
         public const string FailureURL = "https://localhost:7075/PaymentGateway/Failure";
 
     }
-
-
     public class YesBankEcollection
 
     {   //Commeon for All
@@ -85,8 +126,7 @@ namespace BusinessModel.Common
         public const string UnAuthorisedAccountNumber = "ZGRSPL917010068476937";
         public const string BadRequestAccountNumber = "ZGRSPL2312180340";
         public const string RejectAccountNumber = "ZGRSPL2312180340";
-        public const string PendingAccountNumber = "ZGRSPL99435353550001";
-         
+        public const string PendingAccountNumber = "ZGRSPL99435353550001";       
 
 
 

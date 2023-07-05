@@ -107,19 +107,6 @@ namespace DataAccess.Admin
                 throw ex;
             }
         }
-        public  List<CompanyList> GetCompanyList()
-        {
-         try
-            {
-                var dParam = new DynamicParameters();
-                List<CompanyList> dBresult = QuerySP<CompanyList>("sp_getCompanyList", dParam).ToList();
-                return dBresult;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
+      
     }
 }

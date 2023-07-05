@@ -14,11 +14,13 @@ namespace DataAccess.Common
         public CommonDA(IDatabaseConfig databaseConfig) : base(databaseConfig)
         {
         }
-        public async Task<bool> AppLog(string ContollerName, string MethodName,string Content)
+        public async Task<bool> AppLog(string CustomerID, string ContollerName, string MethodName,string Content)
         {
             try
             {
                 var dParam = new DynamicParameters();
+                
+                dParam.Add("@CustomerID", CustomerID);
                 dParam.Add("@Contoller", ContollerName);
                 dParam.Add("@Method", MethodName);
                 dParam.Add("@Content", Content.ToString());
@@ -32,11 +34,12 @@ namespace DataAccess.Common
             }
 
         }
-        public async Task<bool> ErrorLog(string ContollerName, string MethodName, string Content)
+        public async Task<bool> ErrorLog(string CustomerID, string ContollerName, string MethodName, string Content)
         {
             try
             {
                 var dParam = new DynamicParameters();
+                dParam.Add("@CustomerID", CustomerID);
                 dParam.Add("@Contoller", ContollerName);
                 dParam.Add("@Method", MethodName);
                 dParam.Add("@Content", Content.ToString());

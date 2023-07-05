@@ -1,4 +1,19 @@
-﻿using BusinessModel.PaymentGateway;
+﻿/*  -----------   Controller OverView Start----------------------   
+       
+1)Should Use Applog and ErrorLog method for log Entry
+         Example: 
+         try
+         {
+         await _LogRepository.AppLog(ControllerName.Admin, MethodName.AddUser, "method input".ToString());
+         catch (Exception ex)
+         {
+          await _LogRepository.ErrorLog(ControllerName.Admin, MethodName.AddUser, ex.ToString());
+         }
+
+
+    -----------   Controller OverView End----------------------   */
+
+using BusinessModel.PaymentGateway;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -6,6 +21,7 @@ using System.Net;
 using BusinessModel.ECollect;
 using BusinessModel.Common;
 using DataAccess.Common;
+using BusinessModel.Admin;
 
 
 namespace NeoBankSolutionAPI.Controllers
@@ -14,8 +30,9 @@ namespace NeoBankSolutionAPI.Controllers
     [ApiController]
     public class ECollectController : ControllerBase
     {
-        private readonly CommonDA _Repository; 
-        public ECollectController(CommonDA commonInstance) => (_Repository) = (commonInstance);
+        string CustomerID = "Webhook_YesBank";
+        private readonly CommonDA _LogRepository; 
+        public ECollectController(CommonDA commonInstance) => (_LogRepository) = (commonInstance);
 
         [HttpPost]
         [Route("notify")]  
@@ -34,7 +51,8 @@ namespace NeoBankSolutionAPI.Controllers
                     return BadRequest(lstrReturn);
                 }
 
-               await _Repository.AppLog("ECollect", "Notify", Request.ToString());           
+                await _LogRepository.AppLog(CustomerID, ControllerName.ECollect, MethodName.Notify, Request.ToString());
+
 
                 //  objLog.WriteAppLog("Ecoll Notify : data :" + lstrRequest, lstrFolderName);
 
@@ -80,8 +98,8 @@ namespace NeoBankSolutionAPI.Controllers
             }
             catch (Exception ex)
             {
-
-                 await _Repository.ErrorLog("ECollect", "Notify", ex.ToString());
+                await _LogRepository.ErrorLog(CustomerID, ControllerName.ECollect, MethodName.Notify, ex.ToString());
+                 
                 valResponse.notifyResult.result = "Internal Server Error";
                 lstrReturn = Newtonsoft.Json.JsonConvert.SerializeObject(valResponse);
                 return StatusCode(500, lstrReturn);
@@ -110,10 +128,8 @@ namespace NeoBankSolutionAPI.Controllers
                     lstrReturn = Newtonsoft.Json.JsonConvert.SerializeObject(valResponse);
                     return BadRequest(lstrReturn);
                 }
-                await _Repository.AppLog("ECollect", "Validate", Request.ToString()); 
-
+                await _LogRepository.AppLog(CustomerID, ControllerName.ECollect, MethodName.Validate, Request.ToString()); 
                 EcollectRequest eColReq = JsonConvert.DeserializeObject<EcollectRequest>(Request.ToString());
-
 
                 if (eColReq.validate.bene_account_no == YesBankEcollection.OkAccountNumber && eColReq.validate.bene_account_ifsc == YesBankEcollection.IFSC && eColReq.validate.transfer_type == YesBankEcollection.Imps)
                 {
@@ -164,7 +180,7 @@ namespace NeoBankSolutionAPI.Controllers
             }
             catch (Exception ex)
             {
-                await _Repository.ErrorLog("ECollect", "Notify", ex.ToString());
+                await _LogRepository.ErrorLog(CustomerID, ControllerName.ECollect, MethodName.Validate, ex.ToString());
                 valResponse.validateResponse.decision = "Internal Server Error";
                 lstrReturn = Newtonsoft.Json.JsonConvert.SerializeObject(valResponse);
                 return StatusCode(500, lstrReturn);

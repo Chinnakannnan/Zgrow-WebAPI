@@ -12,7 +12,6 @@ namespace DataAccess.Admin
     {
     StatusResponse AddCompany(AddAdminRequest addAdminRequest);
     StatusResponse AddUser(OnBoardingRequest onBoardingRequest);
-     List<CompanyList> GetCompanyList();
      StatusResponse AddAPI(APIInsert apiInsert);
     }
 }

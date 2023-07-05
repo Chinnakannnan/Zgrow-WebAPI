@@ -12,7 +12,7 @@ namespace BusinessDomain.Admin
     {
         StatusResponse AddCompany(AddAdminRequest addAdminRequest);
          StatusResponse AddUser(OnBoardingRequest onBoardingRequest);
-        List<CompanyList> GetCompanyList();
+     
         StatusResponse APIInsert(APIInsert apiRequest);
     }
 }
