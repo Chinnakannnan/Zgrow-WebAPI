@@ -69,4 +69,31 @@ namespace BusinessModel.Common
         public const string FailureURL = "https://localhost:7075/PaymentGateway/Failure";
 
     }
+
+
+    public class YesBankEcollection
+
+    {   //Commeon for All
+        public const string IFSC = "YESB0CMSNOC";
+        public const string Neft = "NEFT";
+        public const string Rtgs = "RTGS";
+        public const string Imps = "IMPS";
+        // Notify 
+        public const string OkAccountNumber = "ZGRSPL99435353550002";
+        public const string RetryAccountNumber = "ZGRSPL99435353550001";
+        public const string ISEAccountNumber = "ZGRSPL088110100157998";
+        public const string UnAuthorisedAccountNumber = "ZGRSPL917010068476937";
+        public const string BadRequestAccountNumber = "ZGRSPL2312180340";
+        public const string RejectAccountNumber = "ZGRSPL2312180340";
+        public const string PendingAccountNumber = "ZGRSPL99435353550001";
+         
+
+
+
+    }
+
+
+
+
+
 }
